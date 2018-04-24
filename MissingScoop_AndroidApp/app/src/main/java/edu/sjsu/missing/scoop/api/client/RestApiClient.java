@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import edu.sjsu.missing.scoop.api.request.DeviceProductMappingRequest;
 
 /**
@@ -21,11 +23,30 @@ import edu.sjsu.missing.scoop.api.request.DeviceProductMappingRequest;
 
 public class RestApiClient {
 
-    private final String BASE_URL = "http://10.0.2.2:8080";
+    private final String BASE_URL = "http://10.0.2.2:8080"; //"http://18.221.192.106:8080";
 
     public void executePostAPI(Context context, String uri, JSONObject jsonObject, final VolleyAPICallback callback) {
         APIRequestQueue queue =  APIRequestQueue.getInstance(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BASE_URL + uri, jsonObject, new Response.Listener<JSONObject> () {
+
+            @Override
+            public void onResponse(JSONObject jsonResponse) {
+                callback.onSuccess(jsonResponse);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("RestApiClient", "Error: " + error.getMessage());
+                callback.onError(error.getMessage());
+            }
+        });
+        queue.getRequestQueue().add(jsonObjectRequest);
+    }
+
+    public void executeGetAPI(Context context, String uri, final VolleyAPICallback callback) {
+        APIRequestQueue queue =  APIRequestQueue.getInstance(context);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,  BASE_URL + uri, null, new Response.Listener<JSONObject> () {
 
             @Override
             public void onResponse(JSONObject jsonResponse) {

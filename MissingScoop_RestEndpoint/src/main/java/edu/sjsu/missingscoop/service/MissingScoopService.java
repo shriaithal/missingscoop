@@ -1,6 +1,7 @@
 package edu.sjsu.missingscoop.service;
 
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
+import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
 
 /**
@@ -11,5 +12,7 @@ import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
 public interface MissingScoopService {
 
 	DeviceProductMappingResponse saveDeviceProductMapping(DeviceProductMappingRequest request);
+
+	DeviceProductListResponse getDeviceProductMappingByUserName(String userName);
 
 }
