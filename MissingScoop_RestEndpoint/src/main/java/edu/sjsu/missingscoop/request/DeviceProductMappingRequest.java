@@ -54,4 +54,10 @@ public class DeviceProductMappingRequest implements Serializable {
 		this.threshold = threshold;
 	}
 
+	@Override
+	public String toString() {
+		return "DeviceProductMappingRequest [userName=" + userName + ", deviceId=" + deviceId + ", label=" + label
+				+ ", threshold=" + threshold + "]";
+	}
+
 }

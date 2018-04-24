@@ -4,5 +4,5 @@ import edu.sjsu.missingscoop.model.DeviceProductMapping;
 
 public interface DeviceProductMappingDao {
 
-	public void save(DeviceProductMapping part);
+	public void save(DeviceProductMapping deviceProductMapping);
 }

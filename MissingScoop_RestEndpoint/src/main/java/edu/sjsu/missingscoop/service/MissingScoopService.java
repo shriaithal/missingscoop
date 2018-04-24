@@ -1,8 +1,7 @@
 package edu.sjsu.missingscoop.service;
 
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
-import edu.sjsu.missingscoop.request.UserRequest;
-import edu.sjsu.missingscoop.response.UserResponse;
+import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
 
 /**
  * Interface for all services
@@ -11,13 +10,6 @@ import edu.sjsu.missingscoop.response.UserResponse;
  */
 public interface MissingScoopService {
 
-	/**
-	 * add user
-	 * @param request
-	 * @return
-	 */
-	UserResponse addUser(UserRequest request);
-
-	void saveUserGroceryMapping(DeviceProductMappingRequest request);
+	DeviceProductMappingResponse saveDeviceProductMapping(DeviceProductMappingRequest request);
 
 }

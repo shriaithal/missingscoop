@@ -1,6 +1,7 @@
 package edu.sjsu.missingscoop.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "DeviceProductMapping")
@@ -11,7 +12,7 @@ public class DeviceProductMapping {
 	private Integer threshold;
 	private String userName;
 
-	@DynamoDBAttribute(attributeName = "deviceId")
+	@DynamoDBHashKey(attributeName = "deviceId")
 	public String getDeviceId() {
 		return deviceId;
 	}

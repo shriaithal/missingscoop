@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
-import edu.sjsu.missingscoop.request.UserRequest;
-import edu.sjsu.missingscoop.response.UserResponse;
+import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
 import edu.sjsu.missingscoop.service.MissingScoopService;
 
 /**
@@ -22,24 +21,11 @@ public class MissingScoopAPIController {
 
 	@Autowired
 	MissingScoopService service;
-
-	/**
-	 * API to add user
-	 * 
-	 * @param request
-	 * @return
-	 */
-	@PostMapping("/add/user")
-	@ResponseBody
-	public UserResponse addUser(@RequestBody UserRequest request) {
-		return service.addUser(request);
-	}
 	
-	@PostMapping("/add/user/grocery")
+	@PostMapping("/map/device/product")
 	@ResponseBody
-	public String saveUserGroceryMapping(@RequestBody DeviceProductMappingRequest request) {
-		service.saveUserGroceryMapping(request);
-		return "Success";
+	public DeviceProductMappingResponse saveDeviceProductMapping(@RequestBody DeviceProductMappingRequest request) {
+		return service.saveDeviceProductMapping(request);
 	}
 
 }
