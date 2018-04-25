@@ -6,9 +6,116 @@
     android:layout_height="match_parent"
     tools:context="edu.sjsu.missing.scoop.AssignDeviceActivity">
 
-    <TextView
-        android:id="@+id/textView2"
+
+    <Button
+        android:id="@+id/scanQRCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="8dp"
+        android:onClick="scanQRCode"
+        android:text="Scan QRCode"
+        app:layout_constraintBottom_toTopOf="@+id/deviceId"
+        app:layout_constraintStart_toStartOf="@+id/deviceId" />
+
+    <TextView
+        android:id="@+id/deviceIdTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="139dp"
+        android:text="Device ID:"
+        android:textColor="#312d2d"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/deviceId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/deviceId"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="54dp"
+        android:background="@drawable/inputboxwithborders"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@+id/deviceIdTxtView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/deviceIdTxtView" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:text="Product:"
+        android:textColor="#312d2d"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deviceId" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="71dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="69dp"
+        android:background="@drawable/spinnerwithborder"
+        app:layout_constraintBottom_toBottomOf="@+id/threshold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productName"
+        app:layout_constraintTop_toTopOf="@+id/deviceIdTxtView" />
+
+    <TextView
+        android:id="@+id/thresholdTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="16dp"
+        android:text="Threshold:"
+        android:textColor="#312d2d"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/threshold"
+        app:layout_constraintEnd_toStartOf="@+id/threshold"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/threshold"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="47dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/inputboxwithborders"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thresholdTxtView"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+    <Button
+        android:id="@+id/saveDeviceProductMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="47dp"
+        android:onClick="saveDeviceProductMap"
+        android:text="Save"
+        app:layout_constraintStart_toStartOf="@+id/threshold"
+        app:layout_constraintTop_toBottomOf="@+id/threshold" />
+
 </android.support.constraint.ConstraintLayout>

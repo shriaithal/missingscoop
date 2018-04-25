@@ -11,26 +11,22 @@ import android.widget.Toast;
 import edu.sjsu.missing.scoop.authentication.AuthenticationHandler;
 import edu.sjsu.missing.scoop.authentication.AuthenticationListener;
 
-public class MainActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     AuthenticationHandler authenticationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_up);
 
         authenticationHandler = new AuthenticationHandler();
-
-        if(authenticationHandler.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
-            finish();
-        }
     }
 
-    public void login(View view) {
-        String email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
-        String password = ((EditText) findViewById(R.id.editTextPassword)).getText().toString();
+    public void signUp(View view) {
+        String email = ((EditText) findViewById(R.id.signUpEmail)).getText().toString();
+        String password = ((EditText) findViewById(R.id.signUpPwd)).getText().toString();
+        String confirmPassword = ((EditText) findViewById(R.id.signUpConfirmPwd)).getText().toString();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
@@ -42,23 +38,29 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        authenticationHandler.signInWithEmailAndPassword(email, password, this, new AuthenticationListener() {
+        if (TextUtils.isEmpty(confirmPassword)) {
+            Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        authenticationHandler.registerWithEmailAndPassword(email, password, this, new AuthenticationListener() {
+
             @Override
             public void onSuccess(String message) {
-                startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
 
             @Override
             public void onFailure(String message) {
-                Toast.makeText(getApplicationContext(), "Invalid username/password", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Username already exists!", Toast.LENGTH_LONG).show();
                 return;
             }
         });
-    }
-
-    public void signUp(View view) {
-        startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
-        finish();
     }
 }

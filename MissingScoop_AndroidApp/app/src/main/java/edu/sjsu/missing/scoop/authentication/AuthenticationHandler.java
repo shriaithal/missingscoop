@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserInfo;
 
 import edu.sjsu.missing.scoop.MainActivity;
+import edu.sjsu.missing.scoop.SignUpActivity;
 
 /**
  * Created by Shriaithal on 4/23/2018.
@@ -39,5 +40,18 @@ public class AuthenticationHandler {
 
     public UserInfo getCurrentUser() {
         return firebaseAuth.getCurrentUser();
+    }
+
+    public void registerWithEmailAndPassword(String email, String password, final SignUpActivity activity, final AuthenticationListener authenticationListener) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    authenticationListener.onSuccess("Login Success!!");
+                } else {
+                    authenticationListener.onFailure("Login Failed!!");
+                }
+            }
+        });
     }
 }
