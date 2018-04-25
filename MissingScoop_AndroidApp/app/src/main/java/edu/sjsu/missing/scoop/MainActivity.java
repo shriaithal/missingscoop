@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         authenticationHandler.signInWithEmailAndPassword(email, password, this, new AuthenticationListener() {
             @Override
             public void onSuccess(String message) {
-                startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
+                startActivity(new Intent(getApplicationContext(), NutritionTrackerActivity.class));
             }
 
             @Override
