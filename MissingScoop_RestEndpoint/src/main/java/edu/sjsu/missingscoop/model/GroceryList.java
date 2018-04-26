@@ -4,20 +4,22 @@ import java.util.List;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperFieldModel.DynamoDBAttributeType;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTyped;
 
 @DynamoDBTable(tableName = "GroceryList")
-public class Grocery {
+public class GroceryList {
 	private String userName;
-	private List<String> groceryName;
+	private List<String> grocery;
 
-	public Grocery() {
+	public GroceryList() {
 	}
 
-	public Grocery(String userName, List<String> groceryName) {
+	public GroceryList(String userName, List<String> grocery) {
 		super();
 		this.userName = userName;
-		this.groceryName = groceryName;
+		this.grocery = grocery;
 	}
 
 	@DynamoDBHashKey(attributeName = "userName")
@@ -29,13 +31,14 @@ public class Grocery {
 		this.userName = userName;
 	}
 
-	@DynamoDBAttribute(attributeName = "groceryName")
-	public List<String> getGroceryName() {
-		return groceryName;
+	@DynamoDBTyped(DynamoDBAttributeType.L)
+	@DynamoDBAttribute(attributeName = "grocery")
+	public List<String> getGrocery() {
+		return grocery;
 	}
 
-	public void setGroceryName(List<String> groceryName) {
-		this.groceryName = groceryName;
+	public void setGrocery(List<String> grocery) {
+		this.grocery = grocery;
 	}
 
 }

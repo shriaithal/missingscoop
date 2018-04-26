@@ -47,5 +47,11 @@ public class MissingScoopAPIController {
 	public GrocerListResponse getGroceryList(String userName) {
 		return service.getGroceryListByUserName(userName);
 	}
+	
+	@PostMapping("/remove/grocery")
+	@ResponseBody
+	public GrocerListResponse removeGrocery(@RequestBody GroceryListRequest request) {
+		return service.removeGrocery(request);
+	}
 
 }

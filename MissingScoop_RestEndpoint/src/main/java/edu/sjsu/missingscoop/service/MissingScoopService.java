@@ -21,4 +21,6 @@ public interface MissingScoopService {
 
 	GrocerListResponse saveGroceryList(GroceryListRequest request);
 
+	GrocerListResponse removeGrocery(GroceryListRequest request);
+
 }

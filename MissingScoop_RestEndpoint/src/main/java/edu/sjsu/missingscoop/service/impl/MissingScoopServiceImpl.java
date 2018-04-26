@@ -12,7 +12,7 @@ import com.amazonaws.util.CollectionUtils;
 import edu.sjsu.missingscoop.dao.DeviceProductMappingDao;
 import edu.sjsu.missingscoop.dao.GroceryListDao;
 import edu.sjsu.missingscoop.model.DeviceProductMapping;
-import edu.sjsu.missingscoop.model.Grocery;
+import edu.sjsu.missingscoop.model.GroceryList;
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
@@ -79,10 +79,10 @@ public class MissingScoopServiceImpl implements MissingScoopService {
 	public GrocerListResponse getGroceryListByUserName(String userName) {
 		GrocerListResponse response = new GrocerListResponse();
 
-		Grocery grocery = groceryListDao.getGroceriesByUserName(userName);
+		GroceryList grocery = groceryListDao.getGroceriesByUserName(userName);
 		if (null != grocery) {
 			response.setUserName(grocery.getUserName());
-			response.setGroceryList(grocery.getGroceryName());
+			response.setGroceryList(grocery.getGrocery());
 			response.setMessage(SUCCESS);
 		} else {
 			response.setMessage("No grocery found");
@@ -93,7 +93,25 @@ public class MissingScoopServiceImpl implements MissingScoopService {
 
 	@Override
 	public GrocerListResponse saveGroceryList(GroceryListRequest request) {
-		// return groceryListDao.save(grocery);
-		return null;
+		List<String> grocery = new ArrayList<>();
+		grocery.add(request.getGrocery());
+
+		GroceryList groceryList = new GroceryList();
+		groceryList.setUserName(request.getUserName());
+		groceryList.setGrocery(grocery);
+		groceryListDao.save(groceryList);
+		return getGroceryListByUserName(request.getUserName());
+	}
+
+	@Override
+	public GrocerListResponse removeGrocery(GroceryListRequest request) {
+		GrocerListResponse response = new GrocerListResponse();
+		GroceryList groceryList = groceryListDao.removeGrocery(request.getUserName(), request.getGrocery());
+		if (null != groceryList) {
+			response.setUserName(groceryList.getUserName());
+			response.setGroceryList(groceryList.getGrocery());
+			response.setMessage(SUCCESS);
+		} 
+		return response;
 	}
 }

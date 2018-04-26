@@ -1,13 +1,13 @@
 package edu.sjsu.missingscoop.dao;
 
-import java.util.List;
-
-import edu.sjsu.missingscoop.model.Grocery;
+import edu.sjsu.missingscoop.model.GroceryList;
 
 public interface GroceryListDao {
 
-	void save(Grocery grocery);
+	GroceryList getGroceriesByUserName(String userName);
 
-	Grocery getGroceriesByUserName(String userName);
+	public void save(GroceryList groceryList);
+
+	GroceryList removeGrocery(String userName, String grocery);
 
 }
