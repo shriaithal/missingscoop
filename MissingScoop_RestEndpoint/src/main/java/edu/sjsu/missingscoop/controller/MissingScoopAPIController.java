@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
+import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
+import edu.sjsu.missingscoop.response.GrocerListResponse;
 import edu.sjsu.missingscoop.service.MissingScoopService;
 
 /**
@@ -33,6 +35,17 @@ public class MissingScoopAPIController {
 	@GetMapping("fetch/device/product")
 	public DeviceProductListResponse getDeviceProductMapping(String userName) {
 		return service.getDeviceProductMappingByUserName(userName);
+	}
+	
+	@PostMapping("/add/grocery")
+	@ResponseBody
+	public GrocerListResponse addGrocery(@RequestBody GroceryListRequest request) {
+		return service.saveGroceryList(request);
+	}
+	
+	@GetMapping("/grocery")
+	public GrocerListResponse getGroceryList(String userName) {
+		return service.getGroceryListByUserName(userName);
 	}
 
 }
