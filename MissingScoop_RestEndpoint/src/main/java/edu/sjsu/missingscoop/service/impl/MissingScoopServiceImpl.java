@@ -10,14 +10,22 @@ import org.springframework.stereotype.Service;
 import com.amazonaws.util.CollectionUtils;
 
 import edu.sjsu.missingscoop.dao.DeviceProductMappingDao;
+<<<<<<< Updated upstream
 import edu.sjsu.missingscoop.dao.GroceryListDao;
+=======
+import edu.sjsu.missingscoop.dao.DeviceWeightDao;
+>>>>>>> Stashed changes
 import edu.sjsu.missingscoop.model.DeviceProductMapping;
 import edu.sjsu.missingscoop.model.GroceryList;
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
+<<<<<<< Updated upstream
 import edu.sjsu.missingscoop.response.GrocerListResponse;
+=======
+import edu.sjsu.missingscoop.response.DeviceWeightResponse;
+>>>>>>> Stashed changes
 import edu.sjsu.missingscoop.service.MissingScoopService;
 
 /**
@@ -33,6 +41,9 @@ public class MissingScoopServiceImpl implements MissingScoopService {
 
 	@Autowired
 	DeviceProductMappingDao deviceProductMappingDao;
+	
+	@Autowired
+	DeviceWeightDao deviceWeightDao;
 
 	@Autowired
 	GroceryListDao groceryListDao;
@@ -76,6 +87,7 @@ public class MissingScoopServiceImpl implements MissingScoopService {
 	}
 
 	@Override
+<<<<<<< Updated upstream
 	public GrocerListResponse getGroceryListByUserName(String userName) {
 		GrocerListResponse response = new GrocerListResponse();
 
@@ -113,5 +125,16 @@ public class MissingScoopServiceImpl implements MissingScoopService {
 			response.setMessage(SUCCESS);
 		} 
 		return response;
+=======
+	public DeviceWeightResponse getDeviceWeightByDeviceId(String deviceId) {
+		// TODO Auto-generated method stub
+		DeviceWeightResponse response = new DeviceWeightResponse();
+		
+		DeviceWeightResponse deviceWeight = deviceWeightDao
+				.getDeviceWeightByDeviceId(deviceId);
+
+		return deviceWeight;
+	
+>>>>>>> Stashed changes
 	}
 }

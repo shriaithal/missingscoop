@@ -11,7 +11,11 @@ import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
+<<<<<<< Updated upstream
 import edu.sjsu.missingscoop.response.GrocerListResponse;
+=======
+import edu.sjsu.missingscoop.response.DeviceWeightResponse;
+>>>>>>> Stashed changes
 import edu.sjsu.missingscoop.service.MissingScoopService;
 
 /**
@@ -37,6 +41,7 @@ public class MissingScoopAPIController {
 		return service.getDeviceProductMappingByUserName(userName);
 	}
 	
+<<<<<<< Updated upstream
 	@PostMapping("/add/grocery")
 	@ResponseBody
 	public GrocerListResponse addGrocery(@RequestBody GroceryListRequest request) {
@@ -52,6 +57,11 @@ public class MissingScoopAPIController {
 	@ResponseBody
 	public GrocerListResponse removeGrocery(@RequestBody GroceryListRequest request) {
 		return service.removeGrocery(request);
+=======
+	@GetMapping("fetch/device/weight")
+	public DeviceWeightResponse getDeviceWeight(String deviceId) {
+		return service.getDeviceWeightByDeviceId(deviceId);
+>>>>>>> Stashed changes
 	}
 
 }

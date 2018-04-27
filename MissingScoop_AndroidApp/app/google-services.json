@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "826123339011",
+    "firebase_url": "https://missing-scoop.firebaseio.com",
+    "project_id": "missing-scoop",
+    "storage_bucket": "missing-scoop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826123339011:android:7724376a8147fc1e",
+        "android_client_info": {
+          "package_name": "edu.sjsu.missing.scoop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826123339011-g2dtrfm451e5b4hfvc427dk28mr7baot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGYVQRcB5wyJDMc-QSadhmmBnWUeZKrJA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

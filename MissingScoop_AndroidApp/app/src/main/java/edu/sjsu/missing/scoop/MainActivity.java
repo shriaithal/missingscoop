@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         authenticationHandler = new AuthenticationHandler();
 
         if(authenticationHandler.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
+//           startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
+            startActivity(new Intent(getApplicationContext(), ListProductActivity.class));
             finish();
         }
     }
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         authenticationHandler.signInWithEmailAndPassword(email, password, this, new AuthenticationListener() {
             @Override
             public void onSuccess(String message) {
-                startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
+//                startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
+                startActivity(new Intent(getApplicationContext(), ListProductActivity.class));
                 finish();
             }
 

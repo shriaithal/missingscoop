@@ -31,7 +31,9 @@
         <activity android:name=".NutritionTrackerActivity" />
         <activity android:name=".AssignDeviceActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".QRCodeScanActivity"></activity>
+        <activity android:name=".QRCodeScanActivity" />
+        <activity android:name=".ListProductActivity" />
+        <activity android:name=".ProductDetailsActivity"></activity>
     </application>
 
 </manifest>
