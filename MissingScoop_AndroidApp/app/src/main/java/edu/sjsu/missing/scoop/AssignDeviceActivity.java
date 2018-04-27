@@ -116,21 +116,4 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
 
         }
     }
-
-    /*public void getDeviceProductMapping() {
-        UserInfo user = authenticationHandler.getCurrentUser();
-        String uri = "/fetch/device/product?userName=" + user.getEmail();
-        restApiClient.executeGetAPI(getApplicationContext(), uri, new VolleyAPICallback() {
-            @Override
-            public void onSuccess(JSONObject jsonResponse) {
-                DeviceProductListResponse response = gson.fromJson(jsonResponse.toString(), DeviceProductListResponse.class);
-                Log.i("AssignDeviceActivity", response.toString());
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.i("AssignDeviceActivity", message);
-            }
-        });
-    }*/
 }
