@@ -4,11 +4,11 @@ import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
-<<<<<<< Updated upstream
+
 import edu.sjsu.missingscoop.response.GrocerListResponse;
-=======
+
 import edu.sjsu.missingscoop.response.DeviceWeightResponse;
->>>>>>> Stashed changes
+
 
 /**
  * Interface for all services
