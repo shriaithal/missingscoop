@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String message) {
 //                startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
-                startActivity(new Intent(getApplicationContext(), ListProductActivity.class));
+                startActivity(new Intent(getApplicationContext(), GroceryListActivity.class));
                 finish();
             }
 
