@@ -13,10 +13,11 @@ import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
 
 import edu.sjsu.missingscoop.response.GrocerListResponse;
-
+import edu.sjsu.missingscoop.response.NutritionFactsListResponse;
 import edu.sjsu.missingscoop.response.DeviceWeightResponse;
 
 import edu.sjsu.missingscoop.service.MissingScoopService;
+import edu.sjsu.missingscoop.service.NutritionService;
 
 /**
  * API Controller for all rest APIs
@@ -29,6 +30,9 @@ public class MissingScoopAPIController {
 
 	@Autowired
 	MissingScoopService service;
+
+	@Autowired
+	NutritionService nutritionService;
 
 	@PostMapping("/map/device/product")
 	@ResponseBody
@@ -62,6 +66,11 @@ public class MissingScoopAPIController {
 	public DeviceWeightResponse getDeviceWeight(String deviceId) {
 		return service.getDeviceWeightByDeviceId(deviceId);
 
+	}
+
+	@GetMapping("fetch/nutrition/all")
+	public NutritionFactsListResponse getAllNutritionFacts() {
+		return nutritionService.getAllNutritionFacts();
 	}
 
 	/*

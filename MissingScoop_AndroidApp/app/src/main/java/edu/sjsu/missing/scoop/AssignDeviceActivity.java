@@ -27,6 +27,8 @@ import edu.sjsu.missing.scoop.api.client.RestApiClient;
 import edu.sjsu.missing.scoop.api.request.DeviceProductMappingRequest;
 import edu.sjsu.missing.scoop.api.response.DeviceProductListResponse;
 import edu.sjsu.missing.scoop.api.response.DeviceProductMappingResponse;
+import edu.sjsu.missing.scoop.api.response.NutritionFactsListResponse;
+import edu.sjsu.missing.scoop.api.response.NutritionFactsResponse;
 import edu.sjsu.missing.scoop.authentication.AuthenticationHandler;
 
 public class AssignDeviceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -44,17 +46,34 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
         authenticationHandler = new AuthenticationHandler();
         restApiClient = new RestApiClient();
         gson = new Gson();
+        getProductList();
+    }
 
-        List<String> categories = new ArrayList<String>();
-        categories.add("Rice");
-        categories.add("Wheat");
-
+    private void showProductDropDown(List<String> products) {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AssignDeviceActivity.this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AssignDeviceActivity.this, android.R.layout.simple_spinner_item, products);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+    }
 
+    private void getProductList() {
+        restApiClient.executeGetAPI(getApplicationContext(), "/fetch/nutrition/all", new VolleyAPICallback() {
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                NutritionFactsListResponse response = gson.fromJson(jsonResponse.toString(), NutritionFactsListResponse.class);
+                List<String> products = new ArrayList<>();
+                for (NutritionFactsResponse record : response.getNutritionFacts()) {
+                    products.add(record.getProductName());
+                }
+                showProductDropDown(products);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
     }
 
     @Override
