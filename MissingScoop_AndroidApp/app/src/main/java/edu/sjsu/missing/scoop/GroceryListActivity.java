@@ -46,6 +46,9 @@ public class GroceryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_list);
+        authenticationHandler = new AuthenticationHandler();
+        restApiClient = new RestApiClient();
+        gson = new Gson();
 
         lvItems=(ListView)findViewById(R.id.lvItems);
         loadGroceryList();
