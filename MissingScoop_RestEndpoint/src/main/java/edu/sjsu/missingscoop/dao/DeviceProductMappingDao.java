@@ -9,4 +9,6 @@ public interface DeviceProductMappingDao {
 	public void save(DeviceProductMapping deviceProductMapping);
 
 	public List<DeviceProductMapping> getDeviceProductMappingByUserName(String userName);
+
+	public List<DeviceProductMapping> findAllDevices();
 }

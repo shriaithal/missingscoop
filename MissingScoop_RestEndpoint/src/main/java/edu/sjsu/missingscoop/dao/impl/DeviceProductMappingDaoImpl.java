@@ -42,4 +42,13 @@ public class DeviceProductMappingDaoImpl implements DeviceProductMappingDao {
 		return deviceProductMappingList;
 	}
 
+	@Override
+	public List<DeviceProductMapping> findAllDevices() {
+		AmazonDynamoDB dynamoDB = dynamodbClient.getDynamoDB();
+		DynamoDBMapper mapper = new DynamoDBMapper(dynamoDB);
+		List<DeviceProductMapping> deviceProductMap = mapper.scan(DeviceProductMapping.class,
+				new DynamoDBScanExpression());
+		return deviceProductMap;
+	}
+
 }

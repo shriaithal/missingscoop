@@ -1,7 +1,10 @@
 package edu.sjsu.missingscoop.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.amazonaws.util.CollectionUtils;
 
+import edu.sjsu.missingscoop.dao.DeviceProductMappingDao;
+import edu.sjsu.missingscoop.dao.DeviceWeightDao;
 import edu.sjsu.missingscoop.dao.NutritionFactsDao;
+import edu.sjsu.missingscoop.model.DeviceProductMapping;
+import edu.sjsu.missingscoop.model.Nutrition;
 import edu.sjsu.missingscoop.model.NutritionFacts;
+import edu.sjsu.missingscoop.model.UserDevicesMap;
+import edu.sjsu.missingscoop.model.UserNutritionMap;
 import edu.sjsu.missingscoop.response.NutritionFactsListResponse;
 import edu.sjsu.missingscoop.response.NutritionFactsResponse;
 import edu.sjsu.missingscoop.service.NutritionService;
@@ -20,6 +29,12 @@ public class NutritionServiceImpl implements NutritionService {
 
 	@Autowired
 	NutritionFactsDao nutritionFactsDao;
+
+	@Autowired
+	DeviceProductMappingDao deviceProductDao;
+
+	@Autowired
+	DeviceWeightDao deviceWeightDao;
 
 	@Override
 	public NutritionFactsListResponse getAllNutritionFacts() {
@@ -40,5 +55,119 @@ public class NutritionServiceImpl implements NutritionService {
 		response.setStatus(HttpStatus.OK.toString());
 		response.setNutritionFacts(nutritionFacts);
 		return response;
+	}
+
+	@Override
+	public Map<String, List<UserDevicesMap>> findAllDevices() {
+		List<DeviceProductMapping> deviceProductMap = deviceProductDao.findAllDevices();
+		
+		if(CollectionUtils.isNullOrEmpty(deviceProductMap)) {
+			return null;
+		}
+		Map<String, List<UserDevicesMap>> userDevicesMap = new HashMap<>();
+
+		if (!CollectionUtils.isNullOrEmpty(deviceProductMap)) {
+			for (DeviceProductMapping deviceProduct : deviceProductMap) {
+				UserDevicesMap userDevice = new UserDevicesMap();
+				userDevice.setDeviceId(deviceProduct.getDeviceId());
+				userDevice.setProductName(deviceProduct.getLabel());
+
+				List<UserDevicesMap> userDevices = new ArrayList<>();
+				if (userDevicesMap.containsKey(deviceProduct.getUserName())) {
+					userDevices = userDevicesMap.get(deviceProduct.getUserName());
+				}
+				userDevices.add(userDevice);
+				userDevicesMap.put(deviceProduct.getUserName(), userDevices);
+			}
+		}
+
+		return userDevicesMap;
+	}
+
+	@Override
+	public UserNutritionMap calculateDailyNutrition(String userName, List<UserDevicesMap> userDevicesMap) {
+		UserNutritionMap userNutritionMap = new UserNutritionMap();
+		userNutritionMap.setUserName(userName);
+
+		double carbohydrate = 0;
+		double fat = 0;
+		double protein = 0;
+		double fiber = 0;
+		double sodium = 0;
+		double sugar = 0;
+
+		for (UserDevicesMap userDevice : userDevicesMap) {
+			double totalConsumption = calculateTotalConsumption(userDevice.getDeviceId());
+			Nutrition nutrition = calculateProductNutrition(totalConsumption, userDevice.getProductName());
+			carbohydrate += nutrition.getCarbohydrate();
+			fat += nutrition.getFat();
+			protein += nutrition.getProtein();
+			fiber += nutrition.getFiber();
+			sodium += nutrition.getSodium();
+			sugar += nutrition.getSugar();
+		}
+
+		userNutritionMap.setCarbohydrate(carbohydrate);
+		userNutritionMap.setFat(fat);
+		userNutritionMap.setFiber(fiber);
+		userNutritionMap.setProtein(protein);
+		userNutritionMap.setSodium(sodium);
+		userNutritionMap.setSugar(sugar);
+
+		return userNutritionMap;
+	}
+
+	@Override
+	public Nutrition calculateProductNutrition(double totalConsumption, String productName) {
+		NutritionFacts nutritionFacts = nutritionFactsDao.getNutritionFacts(productName);
+
+		Nutrition nutrition = new Nutrition();
+		nutrition.setCarbohydrate(calculateNutrition(totalConsumption, nutritionFacts.getCarbohydrate()));
+		nutrition.setFat(calculateNutrition(totalConsumption, nutritionFacts.getFat()));
+		nutrition.setFiber(calculateNutrition(totalConsumption, nutritionFacts.getFiber()));
+		nutrition.setProtein(calculateNutrition(totalConsumption, nutritionFacts.getProtein()));
+		nutrition.setSodium(calculateNutrition(totalConsumption, nutritionFacts.getSodium()));
+		nutrition.setSugar(calculateNutrition(totalConsumption, nutritionFacts.getSugar()));
+		return nutrition;
+	}
+
+	private double calculateNutrition(double totalConsumption, double nutritionValue) {
+		double value = (totalConsumption * nutritionValue) / 100;
+
+		long factor = (long) Math.pow(10, 2);
+		value = value * factor;
+		long tmp = Math.round(value);
+		return (double) tmp / factor;
+	}
+
+	@Override
+	public Double calculateTotalConsumption(String deviceId) {
+		Double totalConsumption = new Double(0);
+		Calendar currentDate = Calendar.getInstance();
+		currentDate.set(Calendar.HOUR_OF_DAY, 23);
+		currentDate.set(Calendar.MINUTE, 55);
+		currentDate.set(Calendar.SECOND, 0);
+		currentDate.set(Calendar.MILLISECOND, 0);
+
+		Long toTimestamp = currentDate.getTimeInMillis();
+
+		currentDate.set(Calendar.HOUR_OF_DAY, 0);
+		currentDate.set(Calendar.MINUTE, 55);
+		currentDate.set(Calendar.SECOND, 1);
+		currentDate.set(Calendar.MILLISECOND, 0);
+
+		Long fromTimestamp = currentDate.getTimeInMillis();
+
+		List<Double> weights = deviceWeightDao.getWeight(deviceId, fromTimestamp, toTimestamp);
+		if (CollectionUtils.isNullOrEmpty(weights)) {
+			return totalConsumption;
+		}
+
+		for (int index = 0; index < weights.size() - 1; index++) {
+			if (weights.get(index) > weights.get(index + 1)) {
+				totalConsumption = totalConsumption + (weights.get(index) - weights.get(index + 1));
+			}
+		}
+		return totalConsumption;
 	}
 }
