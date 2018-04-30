@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import edu.sjsu.missing.scoop.api.client.VolleyAPICallback;
 import edu.sjsu.missing.scoop.api.request.GroceryListRequest;
 import edu.sjsu.missing.scoop.api.response.GrocerListResponse;
 import edu.sjsu.missing.scoop.authentication.AuthenticationHandler;
+import edu.sjsu.missing.scoop.utilities.RVAdapter;
 
 
 import java.util.ArrayList;
@@ -38,9 +40,11 @@ public class GroceryListActivity extends AppCompatActivity {
     private AuthenticationHandler authenticationHandler;
     private GrocerListResponse response;
     private Gson gson;
-    private List<String> groceryList = new ArrayList<>();
+  //  private List<String> groceryList = new ArrayList<>();
     private EditText groceryEditText;
     private TextView groceryTextView;
+    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,16 @@ public class GroceryListActivity extends AppCompatActivity {
         lvItems=(ListView)findViewById(R.id.lvItems);
         loadGroceryList();
     }
-
+    @Override
+    protected void onResume() {
+        loadGroceryList();
+        super.onResume();
+    }
+    @Override
+    protected void onRestart() {
+        loadGroceryList();
+        super.onRestart();
+    }
     public void loadGroceryList() {
         UserInfo user = authenticationHandler.getCurrentUser();
         String uri = "/grocery?userName=" + user.getEmail();
@@ -61,11 +74,25 @@ public class GroceryListActivity extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
                 GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
+
                 Log.i("GroceryListActivity", response.toString());
+               List<String> groceryList =  response.getGroceryList();
+                if (adapter == null) {
+                    adapter =new ArrayAdapter<String>(GroceryListActivity.this, R.layout.row,R.id.grocery_name ,groceryList);
+                    lvItems.setAdapter(adapter);
+
+
+                } else {
+                    adapter.clear();
+                    adapter.addAll(groceryList);
+                    adapter.notifyDataSetChanged();
+
+                }
             }
 
             @Override
             public void onError(String message) {
+                Log.i("GroceryListActivity" , message);
 
             }
         });
@@ -82,6 +109,7 @@ public class GroceryListActivity extends AppCompatActivity {
                 public void onSuccess(JSONObject jsonResponse) {
                     GrocerListResponse response = gson.fromJson(jsonResponse.toString(),GrocerListResponse.class);
                     Log.i("GroceryListActivity",response.toString());
+                    loadGroceryList();
                 }
 
                 @Override
@@ -107,6 +135,7 @@ public class GroceryListActivity extends AppCompatActivity {
                 public void onSuccess(JSONObject jsonResponse) {
                     GrocerListResponse response = gson.fromJson(jsonResponse.toString(),GrocerListResponse.class);
                     Log.i("GroceryListActivity",response.toString());
+                    loadGroceryList();
                 }
 
                 @Override
@@ -154,6 +183,7 @@ public class GroceryListActivity extends AppCompatActivity {
                             return true;
 
             }
+//            loadGroceryList();
             return super.onOptionsItemSelected(item);
         }
     public void deleteGrocery(View view){
