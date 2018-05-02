@@ -9,7 +9,7 @@ public interface DeviceWeightDao {
 
 	public DeviceWeightResponse getDeviceWeightByDeviceId(String deviceId);
 
-	public List<Double> getWeight(String deviceId, Long fromTimestamp, Long toTimestamp);
+	public List<Double> getWeight(String deviceId, Long fromTimestamp, Long toTimestamp, boolean sort);
 
 	public void save(TestIotData data);
 

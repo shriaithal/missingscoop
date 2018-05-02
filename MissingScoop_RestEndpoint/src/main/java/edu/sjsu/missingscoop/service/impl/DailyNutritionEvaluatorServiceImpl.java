@@ -6,14 +6,17 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import edu.sjsu.missingscoop.dao.UserNutritionDao;
 import edu.sjsu.missingscoop.model.UserDevicesMap;
 import edu.sjsu.missingscoop.model.UserNutritionMap;
 import edu.sjsu.missingscoop.service.DailyNutritionEvaluatorService;
 
-@Service
+@Configuration
+@EnableScheduling
 public class DailyNutritionEvaluatorServiceImpl implements DailyNutritionEvaluatorService {
 
 	@Autowired
@@ -22,6 +25,7 @@ public class DailyNutritionEvaluatorServiceImpl implements DailyNutritionEvaluat
 	@Autowired
 	UserNutritionDao userNutritionDao;
 
+	@Scheduled(cron = "55 23 * * * ?")
 	@Override
 	public void evaluateDailyNutrition() {
 		Map<String, List<UserDevicesMap>> userDevicesMap = nutritionServiceImpl.findAllDevices();

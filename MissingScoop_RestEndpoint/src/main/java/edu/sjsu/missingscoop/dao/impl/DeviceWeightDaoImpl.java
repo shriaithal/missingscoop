@@ -60,7 +60,7 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 	}
 
 	@Override
-	public List<Double> getWeight(String deviceId, Long fromTimestamp, Long toTimestamp) {
+	public List<Double> getWeight(String deviceId, Long fromTimestamp, Long toTimestamp, boolean sort) {
 		List<Double> returnList = new ArrayList<>();
 		AmazonDynamoDB dynamoDB = dynamodbClient.getDynamoDB();
 		Map<String, String> expressionAttributesNames = new HashMap<>();
@@ -76,7 +76,7 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 				.withIndexName("deviceId-timestamp-index")
 				.withKeyConditionExpression("#deviceId = :deviceIdValue and #timestamp BETWEEN :from AND :to ")
 				.withExpressionAttributeNames(expressionAttributesNames)
-				.withExpressionAttributeValues(expressionAttributeValues).withScanIndexForward(true);
+				.withExpressionAttributeValues(expressionAttributeValues).withScanIndexForward(sort);
 
 		QueryResult queryResult = dynamoDB.query(queryRequest);
 		List<Map<String, AttributeValue>> results = queryResult.getItems();

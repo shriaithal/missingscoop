@@ -11,11 +11,11 @@ import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
-
+import edu.sjsu.missingscoop.response.DeviceWeightResponse;
 import edu.sjsu.missingscoop.response.GrocerListResponse;
 import edu.sjsu.missingscoop.response.NutritionFactsListResponse;
-import edu.sjsu.missingscoop.response.DeviceWeightResponse;
-
+import edu.sjsu.missingscoop.response.NutritionHistoryResponse;
+import edu.sjsu.missingscoop.response.UserNutritionResponse;
 import edu.sjsu.missingscoop.service.MissingScoopService;
 import edu.sjsu.missingscoop.service.NutritionService;
 
@@ -73,8 +73,13 @@ public class MissingScoopAPIController {
 		return nutritionService.getAllNutritionFacts();
 	}
 
-	/*
-	 * @GetMapping("/test") public void test() { testDao.test(); }
-	 */
+	@GetMapping("/nutrition/history")
+	public NutritionHistoryResponse getNutritionHistory(String userName) {
+		return nutritionService.getNutritionHistory(userName);
+	}
 
+	@GetMapping("/nutrition/daily")
+	public UserNutritionResponse getDailyNutritionFacts(String userName) {
+		return nutritionService.getDailyNutritionFacts(userName);
+	}
 }
