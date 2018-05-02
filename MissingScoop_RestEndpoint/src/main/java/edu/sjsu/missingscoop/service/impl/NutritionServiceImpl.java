@@ -124,6 +124,7 @@ public class NutritionServiceImpl implements NutritionService {
 	@Override
 	public Nutrition calculateProductNutrition(double totalConsumption, String productName) {
 		NutritionFacts nutritionFacts = nutritionFactsDao.getNutritionFacts(productName);
+		//TODO check for null pointer exception here
 
 		Nutrition nutrition = new Nutrition();
 		nutrition.setCarbohydrate(calculateNutrition(totalConsumption, nutritionFacts.getCarbohydrate()));

@@ -25,7 +25,7 @@ public class DailyNutritionEvaluatorServiceImpl implements DailyNutritionEvaluat
 	@Autowired
 	UserNutritionDao userNutritionDao;
 
-	@Scheduled(cron = "55 23 * * * ?")
+	@Scheduled(cron = "37 23 * * * ?")
 	@Override
 	public void evaluateDailyNutrition() {
 		Map<String, List<UserDevicesMap>> userDevicesMap = nutritionServiceImpl.findAllDevices();

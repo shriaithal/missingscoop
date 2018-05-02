@@ -33,7 +33,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".QRCodeScanActivity" />
         <activity android:name=".ListProductActivity" />
-        <activity android:name=".ProductDetailsActivity"></activity>
+        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".NutritionHistoryTrackerActivity"></activity>
     </application>
 
 </manifest>
