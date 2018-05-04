@@ -90,7 +90,7 @@ public class NutritionTrackerActivity extends AppCompatActivity {
 
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
         multiRenderer.setXLabels(0);
-        multiRenderer.setXTitle("Days of Week");
+        multiRenderer.setXTitle("Nutrients");
         multiRenderer.setYTitle("Nutrition Values");
 
         multiRenderer.setChartTitleTextSize(28);
@@ -113,7 +113,7 @@ public class NutritionTrackerActivity extends AppCompatActivity {
         multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
         multiRenderer.setTextTypeface("sans_serif", Typeface.BOLD);
         multiRenderer.setYLabels(6);
-        multiRenderer.setXAxisMin(-0.75);
+        multiRenderer.setXAxisMin(0.75);
         multiRenderer.setXAxisMax(6);
         multiRenderer.setBarSpacing(0.75);
         multiRenderer.setBackgroundColor(Color.TRANSPARENT);
