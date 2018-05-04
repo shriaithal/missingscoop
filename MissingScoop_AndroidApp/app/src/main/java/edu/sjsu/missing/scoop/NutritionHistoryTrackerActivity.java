@@ -198,8 +198,6 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         multiRenderer.setPointSize(4f);
         multiRenderer.setMargins(new int[]{30, 30, 30, 30});
 
-        // setting y axis max value, Since i'm using static values inside the graph so i'm setting y max value to 4000.
-// if you use dynamic values then get the max y value and set here
         multiRenderer.setYAxisMax(40000);
 
         for (int i = 0; i < mDaysOfWeek.length; i++) {

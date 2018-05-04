@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context="edu.sjsu.missing.scoop.NutritionTrackerActivity">
 
+
+    <LinearLayout
+        android:id="@+id/chart2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        tools:ignore="Orientation" >
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
