@@ -23,5 +23,29 @@ public class TestGETSenarios extends restUtil{
 	 int statusCode =response.getStatusLine().getStatusCode();
      Assert.assertEquals(statusCode,Status.OK.getStatusCode());
  }
+ @Test(description = "GET  /nutrition/daily",priority=1, dependsOnMethods = {"getDeviceProductMap"})
+ public void getDailyNutrition() throws Exception {
+	 HttpResponse response = doGet(envURL+"/nutrition/daily?userName=<username>", null);
+	 int statusCode =response.getStatusLine().getStatusCode();
+     Assert.assertEquals(statusCode,Status.OK.getStatusCode());
+ }
+ @Test(description = "GET  /nutrition/history",priority=2, dependsOnMethods = {"getDailyNutrition"})
+ public void getNutritionHistory() throws Exception {
+	 HttpResponse response = doGet(envURL+"/nutrition/history?userName=<username>", null);
+	 int statusCode =response.getStatusLine().getStatusCode();
+     Assert.assertEquals(statusCode,Status.OK.getStatusCode());
+ }
+ @Test(description = "GET  /fetch/nutrition/all",priority=3, dependsOnMethods = {"getNutritionHistory"})
+ public void getAllNutrition() throws Exception {
+	 HttpResponse response = doGet(envURL+"/fetch/nutrition/all", null);
+	 int statusCode =response.getStatusLine().getStatusCode();
+     Assert.assertEquals(statusCode,Status.OK.getStatusCode());
+ }
+ @Test(description = "GET  /fetch/device/weight?userName=?",priority=4, dependsOnMethods = {"getAllNutrition"})
+ public void getDeviceWeight() throws Exception {
+	 HttpResponse response = doGet(envURL+"/fetch/device/weight?userName=<username>", null);
+	 int statusCode =response.getStatusLine().getStatusCode();
+     Assert.assertEquals(statusCode,Status.OK.getStatusCode());
+ }
 
 }
