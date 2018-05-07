@@ -3,61 +3,53 @@ package edu.sjsu.missing.scoop.api.response;
 public class DeviceWeightResponse extends GenericResponse {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
-	private String deviceId;
-	private String weight;
-	private String timestamp;
-	
+	private double currentWeight;
+	private double consumptionRate;
+	private double estimatedCompletion;
+
 	public DeviceWeightResponse() {
-		
+
 	}
-	
-	public DeviceWeightResponse(String deviceId, String weight, String time) {
+
+	public DeviceWeightResponse(double currentWeight, double consumptionRate, double estimatedCompletion) {
 		super();
-		this.deviceId = deviceId;
-		this.weight = weight;
-		this.timestamp = time;
-	}
-	
-	public String getId() {
-		return id;
+		this.currentWeight = currentWeight;
+		this.consumptionRate = consumptionRate;
+		this.estimatedCompletion = estimatedCompletion;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public double getCurrentWeight() {
+		return currentWeight;
 	}
 
-	public String getDeviceId() {
-		return deviceId;
+	public void setCurrentWeight(double currentWeight) {
+		this.currentWeight = currentWeight;
 	}
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public double getConsumptionRate() {
+		return consumptionRate;
 	}
 
-	public String getWeight() {
-		return weight;
+	public void setConsumptionRate(double consumptionRate) {
+		this.consumptionRate = consumptionRate;
 	}
 
-	public void setWeight(String weight) {
-		this.weight = weight;
+	public double getEstimatedCompletion() {
+		return estimatedCompletion;
 	}
 
-	public String getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+	public void setEstimatedCompletion(double estimatedCompletion) {
+		this.estimatedCompletion = estimatedCompletion;
 	}
 
 	@Override
 	public String toString() {
-		return "DeviceWeightResponse [id=" + id + ", deviceId=" + deviceId + ", weight=" + weight + ", timestamp="
-				+ timestamp + "]";
+		return "DeviceWeightResponse [currentWeight=" + currentWeight + ", consumptionRate=" + consumptionRate
+				+ ", estimatedCompletion=" + estimatedCompletion + "]";
 	}
-	
+
+
 }

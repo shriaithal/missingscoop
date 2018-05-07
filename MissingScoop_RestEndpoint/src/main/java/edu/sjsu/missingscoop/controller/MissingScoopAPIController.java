@@ -1,5 +1,8 @@
 package edu.sjsu.missingscoop.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +66,7 @@ public class MissingScoopAPIController {
 	}
 
 	@GetMapping("fetch/device/weight")
-	public DeviceWeightResponse getDeviceWeight(String deviceId) {
+	public 	DeviceWeightResponse getDeviceWeight(String deviceId) {
 		return service.getDeviceWeightByDeviceId(deviceId);
 
 	}

@@ -1,5 +1,8 @@
 package edu.sjsu.missingscoop.service;
 
+import java.util.List;
+import java.util.Map;
+
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;

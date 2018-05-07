@@ -17,6 +17,7 @@ import com.amazonaws.util.CollectionUtils;
 
 import edu.sjsu.missingscoop.dao.DeviceWeightDao;
 import edu.sjsu.missingscoop.model.TestIotData;
+import edu.sjsu.missingscoop.model.DeviceWeight;
 import edu.sjsu.missingscoop.response.DeviceWeightResponse;
 
 @Repository
@@ -27,36 +28,86 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 
 	@Override
 	public DeviceWeightResponse getDeviceWeightByDeviceId(String deviceId) {
-		// TODO Auto-generated method stub
 
-		DeviceWeightResponse data = new DeviceWeightResponse();
+		DeviceWeightResponse finalResponse = new DeviceWeightResponse();
+		// DeviceWeightResponse data = new DeviceWeightResponse();
+		// List<DeviceWeightResponse> data = new ArrayList<>();
 		AmazonDynamoDB dynamoDB = dynamodbClient.getDynamoDB();
 		Map<String, String> expressionAttributesNames = new HashMap<>();
 		expressionAttributesNames.put("#deviceId", "deviceId");
-		expressionAttributesNames.put("#timestamp", "timestamp");
+		// expressionAttributesNames.put("#timestamp","timestamp");
 
 		Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
-		expressionAttributeValues.put(":deviceIdValue", new AttributeValue().withS("001"));
-		expressionAttributeValues.put(":to", new AttributeValue().withS("1524806300"));
-		expressionAttributeValues.put(":from", new AttributeValue().withS("1524805852"));
+		expressionAttributeValues.put(":deviceIdValue", new AttributeValue().withS(deviceId));
+		// expressionAttributeValues.put(":to",new
+		// AttributeValue().withS("1524806300"));
+		// expressionAttributeValues.put(":from",new
+		// AttributeValue().withS("1524805852"));
 
 		QueryRequest queryRequest = new QueryRequest().withTableName("TestIotData")
 				.withIndexName("deviceId-timestamp-index")
-				.withKeyConditionExpression("#deviceId = :deviceIdValue and #timestamp BETWEEN :from AND :to ")
+				// .withKeyConditionExpression("#deviceId = :deviceIdValue and #timestamp
+				// BETWEEN :from AND :to ")
+				.withKeyConditionExpression("#deviceId = :deviceIdValue")
 				.withExpressionAttributeNames(expressionAttributesNames)
-				.withExpressionAttributeValues(expressionAttributeValues).withScanIndexForward(false).withLimit(1);
+				// .withExpressionAttributeValues(expressionAttributeValues).withScanIndexForward(false).withLimit(1);
+				.withExpressionAttributeValues(expressionAttributeValues).withScanIndexForward(false);
 
 		QueryResult queryResult = dynamoDB.query(queryRequest);
 		List<Map<String, AttributeValue>> results = queryResult.getItems();
-		for (Map<String, AttributeValue> result : results) {
-			System.out.println(result);
-			data.setId(result.get("id").getS());
-			data.setWeight(result.get("weight").getS());
-			data.setDeviceId(result.get("deviceId").getS());
-			data.setTimestamp(result.get("timestamp").getS());
-			System.out.println(data);
+
+		if (results.isEmpty())
+			return null;
+
+		// Current Weight
+		double currentWeight = Double.parseDouble((results.get(0)).get("weight").getS());
+		finalResponse.setCurrentWeight(currentWeight);
+
+		double summ = 0;
+		int i = 0;
+		double entry, preventry, temp;
+
+		// Consumption Rate
+		for (i = 0; i < results.size() - 1; i++) {
+
+			entry = Double.parseDouble((results.get(i)).get("weight").getS());
+			preventry = Double.parseDouble((results.get(i + 1)).get("weight").getS());
+			if (entry < 0)
+				entry = 0;
+			if (preventry < 0)
+				preventry = 0;
+			temp = entry - preventry;
+			if (temp > 10)
+				break;
+			if (temp > 0)
+				continue;
+			summ += preventry - entry;
 		}
-		return data;
+		if (summ > 0) {
+			int lastdate = Integer.parseInt((results.get(0)).get("timestamp").getS());
+			int refilledDate = Integer.parseInt((results.get(i)).get("timestamp").getS());
+			int divisor = 1;
+			if (refilledDate - lastdate < 86400)
+				divisor = 1;
+			else
+				divisor = (refilledDate - lastdate) / 86400;
+			double consumptionrate = summ / divisor;
+
+			// Estimated Completion Days
+			double estimatedCompletionDays = currentWeight / consumptionrate;
+
+			finalResponse.setConsumptionRate(consumptionrate);
+			finalResponse.setEstimatedCompletion(estimatedCompletionDays);
+
+			// System.out.println(results);
+			// System.out.println(consumptionrate);
+			// System.out.println(estimatedCompletionDays);
+		}
+
+		System.out.println(finalResponse);
+
+		return finalResponse;
+
 	}
 
 	@Override

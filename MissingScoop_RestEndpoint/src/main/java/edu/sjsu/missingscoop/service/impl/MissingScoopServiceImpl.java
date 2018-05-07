@@ -2,6 +2,7 @@ package edu.sjsu.missingscoop.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -128,7 +129,6 @@ public class MissingScoopServiceImpl implements MissingScoopService {
 	
 	public DeviceWeightResponse getDeviceWeightByDeviceId(String deviceId) {
 		// TODO Auto-generated method stub
-		DeviceWeightResponse response = new DeviceWeightResponse();
 		
 		DeviceWeightResponse deviceWeight = deviceWeightDao
 				.getDeviceWeightByDeviceId(deviceId);
