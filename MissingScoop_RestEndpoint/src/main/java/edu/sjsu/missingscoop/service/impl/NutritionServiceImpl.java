@@ -103,6 +103,9 @@ public class NutritionServiceImpl implements NutritionService {
 		for (UserDevicesMap userDevice : userDevicesMap) {
 			double totalConsumption = calculateTotalConsumption(userDevice.getDeviceId());
 			Nutrition nutrition = calculateProductNutrition(totalConsumption, userDevice.getProductName());
+			if(null == nutrition) {
+				continue;
+			}
 			carbohydrate += nutrition.getCarbohydrate();
 			fat += nutrition.getFat();
 			protein += nutrition.getProtein();
@@ -124,8 +127,10 @@ public class NutritionServiceImpl implements NutritionService {
 	@Override
 	public Nutrition calculateProductNutrition(double totalConsumption, String productName) {
 		NutritionFacts nutritionFacts = nutritionFactsDao.getNutritionFacts(productName);
-		//TODO check for null pointer exception here
-
+		
+		if(null == nutritionFacts) {
+			return null;
+		}
 		Nutrition nutrition = new Nutrition();
 		nutrition.setCarbohydrate(calculateNutrition(totalConsumption, nutritionFacts.getCarbohydrate()));
 		nutrition.setFat(calculateNutrition(totalConsumption, nutritionFacts.getFat()));
@@ -149,6 +154,10 @@ public class NutritionServiceImpl implements NutritionService {
 	public Double calculateTotalConsumption(String deviceId) {
 		Double totalConsumption = new Double(0);
 		Calendar currentDate = Calendar.getInstance();
+		
+		/*Date date = new Date(1525637651);
+		currentDate.setTime(date);*/
+		
 		currentDate.set(Calendar.HOUR_OF_DAY, 23);
 		currentDate.set(Calendar.MINUTE, 55);
 		currentDate.set(Calendar.SECOND, 0);

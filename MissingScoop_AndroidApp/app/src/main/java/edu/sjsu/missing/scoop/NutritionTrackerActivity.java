@@ -28,7 +28,7 @@ import edu.sjsu.missing.scoop.authentication.AuthenticationHandler;
 
 public class NutritionTrackerActivity extends AppCompatActivity {
 
-    private String[] mNutrtions = {"Carbohydrates", "Proteins", "Fats", "Fiber", "Sugar", "Sodium"};
+    private String[] mNutrtions = {"Carbs", "Proteins", "Fats", "Fiber", "Sugar", "Sodium"};
     private Gson gson;
     private RestApiClient restApiClient;
     private AuthenticationHandler authenticationHandler;
@@ -94,8 +94,8 @@ public class NutritionTrackerActivity extends AppCompatActivity {
         multiRenderer.setYTitle("Nutrition Values");
 
         multiRenderer.setChartTitleTextSize(28);
-        multiRenderer.setAxisTitleTextSize(24);
-        multiRenderer.setLabelsTextSize(24);
+        multiRenderer.setAxisTitleTextSize(28);
+        multiRenderer.setLabelsTextSize(28);
         multiRenderer.setZoomButtonsVisible(false);
         multiRenderer.setPanEnabled(false, false);
         multiRenderer.setClickEnabled(false);
@@ -109,19 +109,23 @@ public class NutritionTrackerActivity extends AppCompatActivity {
         multiRenderer.setAntialiasing(true);
         multiRenderer.setInScroll(false);
         multiRenderer.setLegendHeight(30);
-        multiRenderer.setXLabelsAlign(Paint.Align.RIGHT);
-        multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
-        multiRenderer.setTextTypeface("sans_serif", Typeface.BOLD);
         multiRenderer.setYLabels(6);
-        multiRenderer.setXAxisMin(0.75);
-        multiRenderer.setXAxisMax(6);
-        multiRenderer.setBarSpacing(0.75);
+        multiRenderer.setXAxisMin(-0.75);
+        multiRenderer.setXAxisMax(7);
+        multiRenderer.setBarSpacing(2);
         multiRenderer.setBackgroundColor(Color.TRANSPARENT);
         multiRenderer.setMarginsColor(getResources().getColor(R.color.transparent_background));
         multiRenderer.setApplyBackgroundColor(true);
-        multiRenderer.setScale(2f);
+        multiRenderer.setScale(4f);
+        multiRenderer.setOrientation(XYMultipleSeriesRenderer.Orientation.HORIZONTAL);
+        multiRenderer.setXLabelsPadding(4f);
+        multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
+        multiRenderer.setXLabelsAlign(Paint.Align.CENTER);
+        multiRenderer.setXLabelsColor(Color.BLACK);
+        multiRenderer.setYLabelsColor(0, Color.BLACK);
+        multiRenderer.setTextTypeface("sans_serif", Typeface.NORMAL);
         multiRenderer.setPointSize(4f);
-        multiRenderer.setMargins(new int[]{30, 30, 30, 30});
+        multiRenderer.setMargins(new int[]{30, 70, 30, 30});
 
         for (int i = 0; i < mNutrtions.length; i++) {
             multiRenderer.addXTextLabel(i, mNutrtions[i]);

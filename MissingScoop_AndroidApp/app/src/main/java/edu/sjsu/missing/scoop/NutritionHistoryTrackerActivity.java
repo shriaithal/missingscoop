@@ -99,23 +99,23 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         for (int i = 0; i < carb.length; i++) {
             carbSeries.add(i, carb[i]);
             proteinSeries.add(i, protein[i]);
-            sugarSeries.add(i, sugar[i]);
             fatSeries.add(i, fat[i]);
+            /*sugarSeries.add(i, sugar[i]);
             sodiumSeries.add(i, sodium[i]);
-            fiberSeries.add(i, fiber[i]);
+            fiberSeries.add(i, fiber[i]);*/
 
         }
 
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         dataset.addSeries(carbSeries);
         dataset.addSeries(proteinSeries);
-        dataset.addSeries(sugarSeries);
         dataset.addSeries(fatSeries);
+        /* dataset.addSeries(sugarSeries);
         dataset.addSeries(sodiumSeries);
-        dataset.addSeries(fiberSeries);
+        dataset.addSeries(fiberSeries);*/
 
         XYSeriesRenderer carbRenderer = new XYSeriesRenderer();
-        carbRenderer.setColor(Color.RED);
+        carbRenderer.setColor(Color.parseColor("#1CD3A2"));
         carbRenderer.setFillPoints(true);
         carbRenderer.setLineWidth(2f);
         carbRenderer.setDisplayChartValues(true);
@@ -124,7 +124,7 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         carbRenderer.setStroke(BasicStroke.SOLID);
 
         XYSeriesRenderer proteinRenderer = new XYSeriesRenderer();
-        proteinRenderer.setColor(Color.GREEN);
+        proteinRenderer.setColor(Color.parseColor("#ADADD6"));
         proteinRenderer.setFillPoints(true);
         proteinRenderer.setLineWidth(2f);
         proteinRenderer.setDisplayChartValues(true);
@@ -132,15 +132,15 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         proteinRenderer.setStroke(BasicStroke.SOLID);
 
         XYSeriesRenderer fatRenderer = new XYSeriesRenderer();
-        fatRenderer.setColor(Color.BLUE);
+        fatRenderer.setColor(Color.parseColor("#81D4FA"));
         fatRenderer.setFillPoints(true);
         fatRenderer.setLineWidth(2f);
         fatRenderer.setDisplayChartValues(true);
         fatRenderer.setPointStyle(PointStyle.CIRCLE);
         fatRenderer.setStroke(BasicStroke.SOLID);
 
-        XYSeriesRenderer fiberRenderer = new XYSeriesRenderer();
-        fiberRenderer.setColor(Color.CYAN);
+        /*XYSeriesRenderer fiberRenderer = new XYSeriesRenderer();
+        fiberRenderer.setColor(Color.parseColor("#0288D1"));
         fiberRenderer.setFillPoints(true);
         fiberRenderer.setLineWidth(2f);
         fiberRenderer.setDisplayChartValues(true);
@@ -148,7 +148,7 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         fiberRenderer.setStroke(BasicStroke.SOLID);
 
         XYSeriesRenderer sugarRenderer = new XYSeriesRenderer();
-        sugarRenderer.setColor(Color.MAGENTA);
+        sugarRenderer.setColor(Color.parseColor("#29B6F6"));
         sugarRenderer.setFillPoints(true);
         sugarRenderer.setLineWidth(2f);
         sugarRenderer.setDisplayChartValues(true);
@@ -156,12 +156,12 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         sugarRenderer.setStroke(BasicStroke.SOLID);
 
         XYSeriesRenderer sodiumRenderer = new XYSeriesRenderer();
-        sodiumRenderer.setColor(Color.YELLOW);
+        sodiumRenderer.setColor(Color.parseColor("#B3E5FC"));
         sodiumRenderer.setFillPoints(true);
         sodiumRenderer.setLineWidth(2f);
         sodiumRenderer.setDisplayChartValues(true);
         sodiumRenderer.setPointStyle(PointStyle.CIRCLE);
-        sodiumRenderer.setStroke(BasicStroke.SOLID);
+        sodiumRenderer.setStroke(BasicStroke.SOLID);*/
 
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
         multiRenderer.setXLabels(0);
@@ -184,21 +184,27 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         multiRenderer.setAntialiasing(true);
         multiRenderer.setInScroll(false);
         multiRenderer.setLegendHeight(30);
-        multiRenderer.setXLabelsAlign(Paint.Align.RIGHT);
-        multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
-        multiRenderer.setTextTypeface("sans_serif", Typeface.BOLD);
+        multiRenderer.setTextTypeface("sans_serif", Typeface.NORMAL);
         multiRenderer.setYLabels(7);
         multiRenderer.setXAxisMin(-0.75);
         multiRenderer.setXAxisMax(7);
-        multiRenderer.setBarSpacing(0.75);
+        multiRenderer.setBarSpacing(1);
         multiRenderer.setBackgroundColor(Color.TRANSPARENT);
         multiRenderer.setMarginsColor(getResources().getColor(R.color.transparent_background));
         multiRenderer.setApplyBackgroundColor(true);
         multiRenderer.setScale(2f);
         multiRenderer.setPointSize(4f);
-        multiRenderer.setMargins(new int[]{30, 30, 30, 30});
+        multiRenderer.setOrientation(XYMultipleSeriesRenderer.Orientation.HORIZONTAL);
+        multiRenderer.setXLabelsPadding(4f);
+        multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
+        multiRenderer.setXLabelsAlign(Paint.Align.CENTER);
+        multiRenderer.setXLabelsColor(Color.BLACK);
+        multiRenderer.setYLabelsColor(0, Color.BLACK);
+        multiRenderer.setTextTypeface("sans_serif", Typeface.NORMAL);
+        multiRenderer.setPointSize(4f);
+        multiRenderer.setMargins(new int[]{30, 70, 30, 30});
 
-        multiRenderer.setYAxisMax(40000);
+        //multiRenderer.setYAxisMax(40000);
 
         for (int i = 0; i < mDaysOfWeek.length; i++) {
             multiRenderer.addXTextLabel(i, mDaysOfWeek[i]);
@@ -207,9 +213,9 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         multiRenderer.addSeriesRenderer(carbRenderer);
         multiRenderer.addSeriesRenderer(proteinRenderer);
         multiRenderer.addSeriesRenderer(fatRenderer);
-        multiRenderer.addSeriesRenderer(fiberRenderer);
+        /*multiRenderer.addSeriesRenderer(fiberRenderer);
         multiRenderer.addSeriesRenderer(sugarRenderer);
-        multiRenderer.addSeriesRenderer(sodiumRenderer);
+        multiRenderer.addSeriesRenderer(sodiumRenderer);*/
 
         LinearLayout chartContainer = (LinearLayout) findViewById(R.id.chart);
         chartContainer.removeAllViews();
