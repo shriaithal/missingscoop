@@ -4,45 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTintMode="screen"
+    android:background="#FFF5EE"
     tools:context="edu.sjsu.missing.scoop.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="143dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/grocery"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="16dp"
-        android:text="Login"
+        android:fontFamily="serif"
+        android:text="Missing Scoop"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="97dp"
+        android:drawableLeft="@drawable/username"
+        android:fontFamily="serif"
         android:hint="Enter email"
         android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="13dp"
+        android:drawableLeft="@drawable/password"
+        android:fontFamily="serif"
         android:hint="Enter password"
         android:inputType="textPassword"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
@@ -51,30 +71,33 @@
         android:id="@+id/buttonSignin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:backgroundTint="#2598e2"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:background="@drawable/button_selector"
         android:onClick="login"
         android:text="Sign IN"
         app:layout_constraintBottom_toTopOf="@+id/btn_reset_password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <Button
         android:id="@+id/btn_reset_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="118dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginBottom="104dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@null"
-        android:text="New User?Sign Up Here"
-        android:textAllCaps="false"
+        android:fontFamily="serif"
         android:onClick="signUp"
+        android:text="New User? Sign Up Here"
+        android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignin" />
 
 </android.support.constraint.ConstraintLayout>
