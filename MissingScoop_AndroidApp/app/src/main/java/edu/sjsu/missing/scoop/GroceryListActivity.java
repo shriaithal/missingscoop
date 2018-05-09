@@ -77,10 +77,15 @@ public class GroceryListActivity extends AppCompatActivity {
         restApiClient.executeGetAPI(getApplicationContext(), uri, new VolleyAPICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
-                GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
+                if( jsonResponse.equals(JSONObject.NULL)||jsonResponse.length()==0)
+                    jsonResponse =new JSONObject(){};
 
-                Log.i("GroceryListActivity", response.toString());
+                GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
+                Log.d("GroceryListActivity", response.toString());
                 List<String> groceryList = response.getGroceryList();
+
+                if(groceryList==null)
+                    groceryList= new ArrayList<String>();
                 if (adapter == null) {
                     adapter = new ArrayAdapter<String>(GroceryListActivity.this, R.layout.row, R.id.grocery_name, groceryList);
                     lvItems.setAdapter(adapter);
@@ -129,7 +134,7 @@ public class GroceryListActivity extends AppCompatActivity {
         }
     }
 
-    public void removeGrocery() {
+    public void removeGrocery( int selected ) {
         UserInfo user = authenticationHandler.getCurrentUser();
         GroceryListRequest request = new GroceryListRequest();
         request.setGrocery(groceryTextView.getText().toString());
@@ -212,11 +217,11 @@ public class GroceryListActivity extends AppCompatActivity {
     }
 
     public void deleteGrocery(View view) {
-        View parent = (View) view.getParent();
         groceryTextView = (TextView) findViewById(R.id.grocery_name);
         String grocery = String.valueOf(groceryTextView.getText());
+        Log.d("GROCERY: ", grocery);
         //post delete here
-        removeGrocery();
+        removeGrocery(lvItems.indexOfChild(view));
         loadGroceryList();
     }
 
