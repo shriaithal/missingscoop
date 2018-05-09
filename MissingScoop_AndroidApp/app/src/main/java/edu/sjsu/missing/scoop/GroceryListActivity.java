@@ -146,6 +146,8 @@ public class GroceryListActivity extends AppCompatActivity {
     }
 
     private void addToListView(List<String> groceryList) {
+            if(groceryList==null)
+                groceryList= new ArrayList<String>();
         if (adapter == null) {
             adapter = new ArrayAdapter<String>(GroceryListActivity.this, R.layout.row, R.id.grocery_name, groceryList);
             lvItems.setAdapter(adapter);
