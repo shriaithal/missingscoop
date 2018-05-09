@@ -92,6 +92,7 @@ public class NutritionTrackerActivity extends AppCompatActivity {
         multiRenderer.setXLabels(0);
         multiRenderer.setXTitle("Nutrients");
         multiRenderer.setYTitle("Nutrition Values");
+        multiRenderer.setLabelsColor(Color.BLACK);
 
         multiRenderer.setChartTitleTextSize(28);
         multiRenderer.setAxisTitleTextSize(28);
@@ -125,7 +126,7 @@ public class NutritionTrackerActivity extends AppCompatActivity {
         multiRenderer.setYLabelsColor(0, Color.BLACK);
         multiRenderer.setTextTypeface("sans_serif", Typeface.NORMAL);
         multiRenderer.setPointSize(4f);
-        multiRenderer.setMargins(new int[]{30, 70, 30, 30});
+        multiRenderer.setMargins(new int[]{30, 70, 70, 30});
 
         for (int i = 0; i < mNutrtions.length; i++) {
             multiRenderer.addXTextLabel(i, mNutrtions[i]);

@@ -167,6 +167,7 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         multiRenderer.setXLabels(0);
         multiRenderer.setXTitle("Days of Week");
         multiRenderer.setYTitle("Nutrition Values");
+        multiRenderer.setLabelsColor(Color.BLACK);
 
         multiRenderer.setChartTitleTextSize(28);
         multiRenderer.setAxisTitleTextSize(24);
@@ -202,7 +203,7 @@ public class NutritionHistoryTrackerActivity extends AppCompatActivity {
         multiRenderer.setYLabelsColor(0, Color.BLACK);
         multiRenderer.setTextTypeface("sans_serif", Typeface.NORMAL);
         multiRenderer.setPointSize(4f);
-        multiRenderer.setMargins(new int[]{30, 70, 30, 30});
+        multiRenderer.setMargins(new int[]{30, 70, 70, 30});
 
         //multiRenderer.setYAxisMax(40000);
 

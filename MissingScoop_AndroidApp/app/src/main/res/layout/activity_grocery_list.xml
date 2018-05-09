@@ -6,9 +6,31 @@
     android:layout_height="match_parent"
     tools:context="edu.sjsu.missing.scoop.GroceryListActivity">
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
         android:id="@+id/lvItems"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="4.0sp"
+        android:layout_margin="@dimen/cardview_default_radius"
         />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:onClick="openGroceryDialog"
+        app:backgroundTint="#ffffff"
+        app:elevation="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:srcCompat="@drawable/add"
+        tools:layout_height="wrap_content"
+        tools:layout_width="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

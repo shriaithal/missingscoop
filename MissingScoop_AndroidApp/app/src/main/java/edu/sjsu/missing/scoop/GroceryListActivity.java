@@ -40,7 +40,6 @@ public class GroceryListActivity extends AppCompatActivity {
     private AuthenticationHandler authenticationHandler;
     private GrocerListResponse response;
     private Gson gson;
-  //  private List<String> groceryList = new ArrayList<>();
     private EditText groceryEditText;
     private TextView groceryTextView;
     ArrayAdapter<String> adapter;
@@ -50,23 +49,28 @@ public class GroceryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_list);
+
+        getSupportActionBar().setTitle("Grocery List");
         authenticationHandler = new AuthenticationHandler();
         restApiClient = new RestApiClient();
         gson = new Gson();
 
-        lvItems=(ListView)findViewById(R.id.lvItems);
+        lvItems = (ListView) findViewById(R.id.lvItems);
         loadGroceryList();
     }
+
     @Override
     protected void onResume() {
-        loadGroceryList();
         super.onResume();
+        loadGroceryList();
     }
+
     @Override
     protected void onRestart() {
-        loadGroceryList();
         super.onRestart();
+        loadGroceryList();
     }
+
     public void loadGroceryList() {
         UserInfo user = authenticationHandler.getCurrentUser();
         String uri = "/grocery?userName=" + user.getEmail();
@@ -76,9 +80,9 @@ public class GroceryListActivity extends AppCompatActivity {
                 GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
 
                 Log.i("GroceryListActivity", response.toString());
-               List<String> groceryList =  response.getGroceryList();
+                List<String> groceryList = response.getGroceryList();
                 if (adapter == null) {
-                    adapter =new ArrayAdapter<String>(GroceryListActivity.this, R.layout.row,R.id.grocery_name ,groceryList);
+                    adapter = new ArrayAdapter<String>(GroceryListActivity.this, R.layout.row, R.id.grocery_name, groceryList);
                     lvItems.setAdapter(adapter);
 
 
@@ -92,104 +96,125 @@ public class GroceryListActivity extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
-                Log.i("GroceryListActivity" , message);
+                Log.i("GroceryListActivity", message);
 
             }
         });
     }
-    public void addGrocery(){
-        UserInfo user =authenticationHandler.getCurrentUser();
+
+    public void addGrocery() {
+        UserInfo user = authenticationHandler.getCurrentUser();
         GroceryListRequest request = new GroceryListRequest();
         request.setGrocery(groceryEditText.getText().toString());
         request.setUserName(user.getEmail());
-        try{
-            JSONObject jsonObject =new JSONObject(gson.toJson(request));
+        try {
+            JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), "/add/grocery", jsonObject, new VolleyAPICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
-                    GrocerListResponse response = gson.fromJson(jsonResponse.toString(),GrocerListResponse.class);
-                    Log.i("GroceryListActivity",response.toString());
+                    GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
+                    Log.i("GroceryListActivity", response.toString());
                     loadGroceryList();
                 }
 
                 @Override
                 public void onError(String message) {
-                    Log.i("GroceryListActivity",message);
+                    Log.i("GroceryListActivity", message);
 
                 }
             });
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             Log.e("RestApiClient", e.getMessage());
         }
     }
-    public void removeGrocery(){
-        UserInfo user =authenticationHandler.getCurrentUser();
+
+    public void removeGrocery() {
+        UserInfo user = authenticationHandler.getCurrentUser();
         GroceryListRequest request = new GroceryListRequest();
         request.setGrocery(groceryTextView.getText().toString());
         request.setUserName(user.getEmail());
-        try{
-            JSONObject jsonObject =new JSONObject(gson.toJson(request));
+        try {
+            JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), "/remove/grocery", jsonObject, new VolleyAPICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
-                    GrocerListResponse response = gson.fromJson(jsonResponse.toString(),GrocerListResponse.class);
-                    Log.i("GroceryListActivity",response.toString());
+                    GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
+                    Log.i("GroceryListActivity", response.toString());
                     loadGroceryList();
                 }
 
                 @Override
                 public void onError(String message) {
-                    Log.i("GroceryListActivity",message);
+                    Log.i("GroceryListActivity", message);
 
                 }
             });
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             Log.e("RestApiClient", e.getMessage());
         }
     }
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu){
 
-            getMenuInflater().inflate(R.menu.menu, menu);
+   /* @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-            Drawable icon =menu.getItem(0) .getIcon();
-            icon.mutate();
-            icon.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
-            return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        Drawable icon = menu.getItem(0).getIcon();
+        icon.mutate();
+        icon.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_grocery:
+                groceryEditText = new EditText(this);
+                AlertDialog dialog = new AlertDialog.Builder(this)
+                        .setTitle("Add New Item")
+                        .setView(groceryEditText)
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String grocery = String.valueOf(groceryEditText.getText());
+                                //POST Method here
+                                addGrocery();
+                                loadGroceryList();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null).create();
+                dialog.show();
+                return true;
 
         }
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item){
-            switch (item.getItemId()) {
-                case R.id.action_add_grocery:
-                    groceryEditText = new EditText(this);
-                    AlertDialog dialog = new AlertDialog.Builder(this)
-                            .setTitle("Add New Grocery")
-                            .setMessage("what is your shopping plan?")
-                            .setView(groceryEditText)
-                            .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    String grocery = String.valueOf(groceryEditText.getText());
-                                    //POST Method here
-                                    addGrocery();
-                                    loadGroceryList();
-                                }
-                            })
-                          .setNegativeButton("Cancel",null).create();
-                            dialog.show();
-                            return true;
-
-            }
 //            loadGroceryList();
-            return super.onOptionsItemSelected(item);
-        }
-    public void deleteGrocery(View view){
-        View parent =(View) view.getParent();
-        groceryTextView = (TextView)findViewById(R.id.grocery_name);
-        String grocery =String.valueOf(groceryTextView.getText());
+        return super.onOptionsItemSelected(item);
+    }*/
+
+    public void openGroceryDialog(View view) {
+        groceryEditText = new EditText(this);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Add New Item")
+                .setView(groceryEditText)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String grocery = String.valueOf(groceryEditText.getText());
+                        addGrocery();
+                        loadGroceryList();
+                    }
+                })
+                .setNegativeButton("Cancel", null).create();
+        dialog.show();
+    }
+
+    public void deleteGrocery(View view) {
+        View parent = (View) view.getParent();
+        groceryTextView = (TextView) findViewById(R.id.grocery_name);
+        String grocery = String.valueOf(groceryTextView.getText());
         //post delete here
         removeGrocery();
         loadGroceryList();
