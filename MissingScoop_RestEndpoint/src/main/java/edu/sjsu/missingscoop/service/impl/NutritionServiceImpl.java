@@ -2,6 +2,7 @@ package edu.sjsu.missingscoop.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,8 +156,8 @@ public class NutritionServiceImpl implements NutritionService {
 		Double totalConsumption = new Double(0);
 		Calendar currentDate = Calendar.getInstance();
 		
-		/*Date date = new Date(1525637651);
-		currentDate.setTime(date);*/
+		Date date = new Date(1525637651);
+		currentDate.setTime(date);
 		
 		currentDate.set(Calendar.HOUR_OF_DAY, 23);
 		currentDate.set(Calendar.MINUTE, 55);
