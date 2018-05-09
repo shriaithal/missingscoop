@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.UserInfo;
 import com.google.gson.Gson;
@@ -88,7 +89,7 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
 
     public void scanQRCode(View view) {
         Intent intent = new Intent(getApplicationContext(), QRCodeScanActivity.class);
-        startActivityForResult(intent, RESULT_OK);
+        startActivityForResult(intent, 2);
     }
 
     public void saveDeviceProductMap(View view) {
@@ -110,6 +111,7 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
                 public void onSuccess(JSONObject jsonResponse) {
                     DeviceProductMappingResponse response = gson.fromJson(jsonResponse.toString(), DeviceProductMappingResponse.class);
                     Log.i("AssignDeviceActivity", response.toString());
+                    showSuccessMsg();
                 }
 
                 @Override
@@ -123,10 +125,13 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
+    private void showSuccessMsg() {
+        Toast.makeText(this, "Device Mapped Successfully", Toast.LENGTH_LONG).show();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == RESULT_OK) {
+        if (requestCode == 2 && intent != null) {
             String qrCode = intent.getStringExtra("QRCode");
             Log.i("AssignDeviceActivity", qrCode);
 

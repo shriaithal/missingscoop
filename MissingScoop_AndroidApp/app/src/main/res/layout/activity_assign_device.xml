@@ -49,6 +49,8 @@
         android:ems="10"
         android:inputType="text"
         android:text=""
+        android:fontFamily="serif"
+        android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/scanQRCode"
         app:layout_constraintStart_toEndOf="@+id/deviceIdTxtView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -108,6 +110,8 @@
         android:layout_marginTop="200dp"
         android:background="@drawable/inputboxwithborders"
         android:ems="10"
+        android:fontFamily="serif"
+        android:textColor="#000000"
         android:inputType="text"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
