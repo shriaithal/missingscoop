@@ -42,7 +42,7 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assign_device);
-        getSupportActionBar().setTitle("Add Devices");
+
         authenticationHandler = new AuthenticationHandler();
         restApiClient = new RestApiClient();
         gson = new Gson();
@@ -88,7 +88,7 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
 
     public void scanQRCode(View view) {
         Intent intent = new Intent(getApplicationContext(), QRCodeScanActivity.class);
-        startActivityForResult(intent, RESULT_OK);
+        startActivityForResult(intent, 2);
     }
 
     public void saveDeviceProductMap(View view) {
@@ -126,7 +126,7 @@ public class AssignDeviceActivity extends AppCompatActivity implements AdapterVi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == RESULT_OK) {
+        if (requestCode == 2) {
             String qrCode = intent.getStringExtra("QRCode");
             Log.i("AssignDeviceActivity", qrCode);
 

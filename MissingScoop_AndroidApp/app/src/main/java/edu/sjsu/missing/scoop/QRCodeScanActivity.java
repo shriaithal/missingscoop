@@ -125,13 +125,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
     public void setActivityResult(final String qrCode) {
         Intent intent = new Intent();
         intent.putExtra("QRCode", qrCode);
-        setResult(RESULT_OK, intent);
+        setResult(2, intent);
         finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        setResult(RESULT_CANCELED);
     }
 }

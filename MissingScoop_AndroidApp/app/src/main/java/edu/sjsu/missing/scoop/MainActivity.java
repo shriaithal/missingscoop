@@ -19,12 +19,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Welcome");
 
         authenticationHandler = new AuthenticationHandler();
 
-        if (authenticationHandler.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+        if(authenticationHandler.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), AssignDeviceActivity.class));
             finish();
         }
     }
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         authenticationHandler.signInWithEmailAndPassword(email, password, this, new AuthenticationListener() {
             @Override
             public void onSuccess(String message) {
-                startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+                startActivity(new Intent(getApplicationContext(), ListProductActivity.class));
                 finish();
             }
 
