@@ -30,8 +30,6 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 	public DeviceWeightResponse getDeviceWeightByDeviceId(String deviceId) {
 
 		DeviceWeightResponse finalResponse = new DeviceWeightResponse();
-		// DeviceWeightResponse data = new DeviceWeightResponse();
-		// List<DeviceWeightResponse> data = new ArrayList<>();
 		AmazonDynamoDB dynamoDB = dynamodbClient.getDynamoDB();
 		Map<String, String> expressionAttributesNames = new HashMap<>();
 		expressionAttributesNames.put("#deviceId", "deviceId");
@@ -66,6 +64,7 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 		double summ = 0;
 		int i = 0;
 		double entry, preventry, temp;
+		int estimatedCompletionDays = 0;
 
 		// Consumption Rate
 		for (i = 0; i < results.size() - 1; i++) {
@@ -94,14 +93,13 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 			double consumptionrate = summ / divisor;
 
 			// Estimated Completion Days
-			double estimatedCompletionDays = currentWeight / consumptionrate;
+			double estimatedCompletionDays_temp =  currentWeight / consumptionrate;
+			
+			if(estimatedCompletionDays_temp>0 && estimatedCompletionDays_temp<1)
+				estimatedCompletionDays = 1;
 
 			finalResponse.setConsumptionRate(consumptionrate);
-			finalResponse.setEstimatedCompletion(estimatedCompletionDays);
-
-			// System.out.println(results);
-			// System.out.println(consumptionrate);
-			// System.out.println(estimatedCompletionDays);
+			finalResponse.setEstimatedCompletion(Math.round(estimatedCompletionDays));
 		}
 
 		System.out.println(finalResponse);

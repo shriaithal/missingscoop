@@ -8,13 +8,13 @@ public class DeviceWeightResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
 	private double currentWeight;
 	private double consumptionRate;
-	private double estimatedCompletion;
+	private int estimatedCompletion;
 	
 	public DeviceWeightResponse() {
 		
 	}
 
-	public DeviceWeightResponse(double currentWeight, double consumptionRate, double estimatedCompletion) {
+	public DeviceWeightResponse(double currentWeight, double consumptionRate, int estimatedCompletion) {
 		super();
 		this.currentWeight = currentWeight;
 		this.consumptionRate = consumptionRate;
@@ -37,11 +37,11 @@ public class DeviceWeightResponse extends GenericResponse {
 		this.consumptionRate = consumptionRate;
 	}
 
-	public double getEstimatedCompletion() {
+	public int getEstimatedCompletion() {
 		return estimatedCompletion;
 	}
 
-	public void setEstimatedCompletion(double estimatedCompletion) {
+	public void setEstimatedCompletion(int estimatedCompletion) {
 		this.estimatedCompletion = estimatedCompletion;
 	}
 

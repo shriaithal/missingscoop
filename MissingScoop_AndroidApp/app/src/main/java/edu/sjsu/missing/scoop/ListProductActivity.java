@@ -57,6 +57,8 @@ public class ListProductActivity extends AppCompatActivity {
         restApiClient = new RestApiClient();
         gson = new Gson();
         getDeviceProductMapping();
+
+        getSupportActionBar().setTitle("Grocery Tracker");
     }
 
     public void getDeviceProductMapping() {

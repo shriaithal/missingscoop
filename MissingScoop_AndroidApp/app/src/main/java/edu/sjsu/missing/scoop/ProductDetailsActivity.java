@@ -3,6 +3,7 @@ package edu.sjsu.missing.scoop;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private ImageView weightStatusImage;
     private double weight;
     private double consumptionRate;
-    private double estimatedCompletion;
+    private int estimatedCompletion;
     private String item;
     private String device;
 
@@ -48,7 +49,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
-        TextView itemText = findViewById(R.id.item);
+        getSupportActionBar().setTitle("Grocery Tracker");
+
         deviceTextView = findViewById(R.id.device);
         currentWeight = findViewById(R.id.currentWeight);
         weightStatusImage = findViewById(R.id.imageView);
@@ -67,8 +69,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void getDeviceWeight(final String device) {
         String uri = "/fetch/device/weight?deviceId=" + device;
         restApiClient.executeGetAPI(getApplicationContext(), uri, new VolleyAPICallback() {
@@ -83,10 +83,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 weight = response.getCurrentWeight();
                 consumptionRate = response.getConsumptionRate();
                 estimatedCompletion = response.getEstimatedCompletion();
-                deviceTextView.setText("Device: "+device);
-                currentWeight.setText("Remaining "+ item + ": " + weight + " grams");
-                consumptionRateTextView.setText("Consumption Rate: "+consumptionRate +" grams per day");
-                estimatedCompletionTextView.setText("Estimated Completion in "+estimatedCompletion +" days");
+
+                String sourceString1 = "<b>" + "Device " +  device + "</b> ";
+                deviceTextView.setText(Html.fromHtml(sourceString1));
+
+                String sourceString2 =  "Remaining "+ "<b>" + item + ": " + weight +  "</b> "+ " grams";
+                currentWeight.setText(Html.fromHtml(sourceString2));
+
+                String sourceString3 =  "Consumption Rate: "+"<b>" +consumptionRate + "</b>" +" grams per day";
+                consumptionRateTextView.setText(Html.fromHtml(sourceString3));
+
+                String sourceString4 = "Estimated Completion: "+ "<b>" +estimatedCompletion + "</b>" +" day/s";
+                estimatedCompletionTextView.setText(Html.fromHtml(sourceString4));
 
                 if(weight<200)
                     weightStatusImage.setImageResource(R.drawable.empty);
@@ -96,11 +104,17 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     weightStatusImage.setImageResource(R.drawable.medium1);
                 else if(weight>700)
                     weightStatusImage.setImageResource(R.drawable.full);
-
             }
+
             @Override
             public void onError(String message) {
+
                 Log.i("ProductDetailsActivity", message);
+                weightStatusImage.setImageResource(R.drawable.empty);
+                deviceTextView.setText("Not assigned");
+                currentWeight.setText("Remaining " + item + ": " +  "0 grams");
+                consumptionRateTextView.setText("Consumption Rate: 0 grams per day");
+                estimatedCompletionTextView.setText("Estimated Completion: 0 day/s");
             }
         });
     }
