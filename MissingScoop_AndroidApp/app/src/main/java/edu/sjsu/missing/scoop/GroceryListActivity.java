@@ -93,9 +93,9 @@ public class GroceryListActivity extends AppCompatActivity {
             restApiClient.executePostAPI(getApplicationContext(), "/add/grocery", jsonObject, new VolleyAPICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
-                    if (jsonResponse.equals(JSONObject.NULL) || jsonResponse.length() == 0)
-                        jsonResponse = new JSONObject() {
-                        };
+                    if (jsonResponse.equals(JSONObject.NULL) || jsonResponse.length() == 0) {
+                        jsonResponse = new JSONObject();
+                    }
                     GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
                     Log.i("GroceryListActivity", response.toString());
                     //loadGroceryList();
