@@ -93,18 +93,9 @@ public class GroceryListActivity extends AppCompatActivity {
             restApiClient.executePostAPI(getApplicationContext(), "/add/grocery", jsonObject, new VolleyAPICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
-                    if (jsonResponse.equals(JSONObject.NULL) || jsonResponse.length() == 0) {
-                        jsonResponse = new JSONObject();
-                    }
                     GrocerListResponse response = gson.fromJson(jsonResponse.toString(), GrocerListResponse.class);
                     Log.i("GroceryListActivity", response.toString());
                     //loadGroceryList();
-                    List<String> groceryList = response.getGroceryList();
-
-                    if (groceryList == null) {
-                        groceryList = new ArrayList<String>();
-                    }
-
                     addToListView(response.getGroceryList());
                 }
 
@@ -146,8 +137,9 @@ public class GroceryListActivity extends AppCompatActivity {
     }
 
     private void addToListView(List<String> groceryList) {
-            if(groceryList==null)
-                groceryList= new ArrayList<String>();
+        if (groceryList == null) {
+            groceryList = new ArrayList<String>();
+        }
         if (adapter == null) {
             adapter = new ArrayAdapter<String>(GroceryListActivity.this, R.layout.row, R.id.grocery_name, groceryList);
             lvItems.setAdapter(adapter);
