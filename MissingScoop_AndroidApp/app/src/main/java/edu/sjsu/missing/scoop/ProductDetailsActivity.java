@@ -111,7 +111,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 Log.i("ProductDetailsActivity", message);
                 weightStatusImage.setImageResource(R.drawable.empty);
-                deviceTextView.setText("Not assigned");
+                deviceTextView.setText("Device " +  device);
                 currentWeight.setText("Remaining " + item + ": " +  "0 grams");
                 consumptionRateTextView.setText("Consumption Rate: 0 grams per day");
                 estimatedCompletionTextView.setText("Estimated Completion: 0 day/s");

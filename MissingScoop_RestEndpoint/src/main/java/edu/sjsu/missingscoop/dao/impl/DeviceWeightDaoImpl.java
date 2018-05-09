@@ -97,9 +97,11 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 			
 			if(estimatedCompletionDays_temp>0 && estimatedCompletionDays_temp<1)
 				estimatedCompletionDays = 1;
+			else 
+				estimatedCompletionDays = (int) estimatedCompletionDays_temp;
 
 			finalResponse.setConsumptionRate(consumptionrate);
-			finalResponse.setEstimatedCompletion(Math.round(estimatedCompletionDays));
+			finalResponse.setEstimatedCompletion(estimatedCompletionDays);
 		}
 
 		System.out.println(finalResponse);
