@@ -4,8 +4,8 @@
 
     <item
         android:title=""
-        android:id="@+id/action_add_grocery"
-        android:icon="@android:drawable/ic_menu_add"
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
         app:showAsAction="always"
         />
 

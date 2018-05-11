@@ -42,6 +42,10 @@ public class AuthenticationHandler {
         return firebaseAuth.getCurrentUser();
     }
 
+    public void logout() {
+        firebaseAuth.signOut();
+    }
+
     public void registerWithEmailAndPassword(String email, String password, final SignUpActivity activity, final AuthenticationListener authenticationListener) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
