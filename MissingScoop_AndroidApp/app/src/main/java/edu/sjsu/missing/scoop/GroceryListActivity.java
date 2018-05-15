@@ -1,6 +1,7 @@
 package edu.sjsu.missing.scoop;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +78,7 @@ public class GroceryListActivity extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
+
                 Log.i("GroceryListActivity", message);
 
             }
@@ -176,4 +178,8 @@ public class GroceryListActivity extends AppCompatActivity {
         loadGroceryList();
     }
 
+    public void openMaps(View view) {
+        Intent intent = new Intent(GroceryListActivity.this, MapsActivity.class);
+        GroceryListActivity.this.startActivity(intent);
+    }
 }
