@@ -17,7 +17,6 @@ import com.amazonaws.util.CollectionUtils;
 
 import edu.sjsu.missingscoop.dao.DeviceWeightDao;
 import edu.sjsu.missingscoop.model.TestIotData;
-import edu.sjsu.missingscoop.model.DeviceWeight;
 import edu.sjsu.missingscoop.response.DeviceWeightResponse;
 
 @Repository
@@ -93,11 +92,11 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 			double consumptionrate = summ / divisor;
 
 			// Estimated Completion Days
-			double estimatedCompletionDays_temp =  currentWeight / consumptionrate;
-			
-			if(estimatedCompletionDays_temp>0 && estimatedCompletionDays_temp<1)
+			double estimatedCompletionDays_temp = currentWeight / consumptionrate;
+
+			if (estimatedCompletionDays_temp > 0 && estimatedCompletionDays_temp < 1)
 				estimatedCompletionDays = 1;
-			else 
+			else
 				estimatedCompletionDays = (int) estimatedCompletionDays_temp;
 
 			finalResponse.setConsumptionRate(consumptionrate);
@@ -146,6 +145,5 @@ public class DeviceWeightDaoImpl implements DeviceWeightDao {
 		AmazonDynamoDB dynamoDB = dynamodbClient.getDynamoDB();
 		DynamoDBMapper mapper = new DynamoDBMapper(dynamoDB);
 		mapper.save(data);
-		
 	}
 }

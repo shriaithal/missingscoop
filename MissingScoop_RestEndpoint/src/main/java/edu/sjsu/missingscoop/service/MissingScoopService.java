@@ -1,16 +1,13 @@
 package edu.sjsu.missingscoop.service;
 
-import java.util.List;
-import java.util.Map;
-
 import edu.sjsu.missingscoop.request.DeviceProductMappingRequest;
 import edu.sjsu.missingscoop.request.GroceryListRequest;
+import edu.sjsu.missingscoop.request.UserTokenRequest;
 import edu.sjsu.missingscoop.response.DeviceProductListResponse;
 import edu.sjsu.missingscoop.response.DeviceProductMappingResponse;
-
-import edu.sjsu.missingscoop.response.GrocerListResponse;
-
 import edu.sjsu.missingscoop.response.DeviceWeightResponse;
+import edu.sjsu.missingscoop.response.GenericResponse;
+import edu.sjsu.missingscoop.response.GrocerListResponse;
 
 
 /**
@@ -31,5 +28,7 @@ public interface MissingScoopService {
 	GrocerListResponse saveGroceryList(GroceryListRequest request);
 
 	GrocerListResponse removeGrocery(GroceryListRequest request);
+
+	GenericResponse saveUserToken(UserTokenRequest request);
 
 }

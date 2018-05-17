@@ -23,7 +23,7 @@ import edu.sjsu.missing.scoop.api.request.DeviceProductMappingRequest;
 
 public class RestApiClient {
 
-    private final String BASE_URL = "http://10.0.2.2:8080"; //"http://18.221.192.106:8080";
+    private final String BASE_URL = "http://54.177.122.80:8080";//"http://192.168.1.109:8080"; //"http://192.168.0.33:8080";//"http://18.221.192.106:8080";
 
     public void executePostAPI(Context context, String uri, JSONObject jsonObject, final VolleyAPICallback callback) {
         APIRequestQueue queue =  APIRequestQueue.getInstance(context);

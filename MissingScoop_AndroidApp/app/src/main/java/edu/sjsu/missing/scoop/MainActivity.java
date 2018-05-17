@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (authenticationHandler.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+            authenticationHandler.sendRegistrationToServer(authenticationHandler.getCurrentUser().getEmail(), getApplicationContext());
             finish();
         }
     }
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         authenticationHandler.signInWithEmailAndPassword(email, password, this, new AuthenticationListener() {
             @Override
             public void onSuccess(String message) {
+                authenticationHandler.sendRegistrationToServer(authenticationHandler.getCurrentUser().getEmail(), getApplicationContext());
                 startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
                 finish();
             }

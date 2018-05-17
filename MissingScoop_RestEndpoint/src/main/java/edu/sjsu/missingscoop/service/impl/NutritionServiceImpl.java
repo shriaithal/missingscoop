@@ -76,6 +76,7 @@ public class NutritionServiceImpl implements NutritionService {
 			UserDevicesMap userDevice = new UserDevicesMap();
 			userDevice.setDeviceId(deviceProduct.getDeviceId());
 			userDevice.setProductName(deviceProduct.getLabel());
+			userDevice.setThreshold(deviceProduct.getThreshold());
 
 			List<UserDevicesMap> userDevices = new ArrayList<>();
 			if (userDevicesMap.containsKey(deviceProduct.getUserName())) {

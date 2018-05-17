@@ -4,6 +4,7 @@ public class UserDevicesMap {
 
 	String deviceId;
 	String productName;
+	private Integer threshold;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -19,5 +20,13 @@ public class UserDevicesMap {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public Integer getThreshold() {
+		return threshold;
+	}
+
+	public void setThreshold(Integer threshold) {
+		this.threshold = threshold;
 	}
 }
