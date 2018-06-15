@@ -7,15 +7,15 @@
   
 - System Architecture
 
-![image](https://user-images.githubusercontent.com/1582196/41492266-d7fdf0e0-70b2-11e8-9942-598084a791f4.png)
+<img src="https://user-images.githubusercontent.com/1582196/41492266-d7fdf0e0-70b2-11e8-9942-598084a791f4.png" width="500" height="300">
 
 - System Design
 
-![image](https://user-images.githubusercontent.com/1582196/41492279-f26eb96e-70b2-11e8-9fa6-de97a1615ae5.png)
+<img src="https://user-images.githubusercontent.com/1582196/41492279-f26eb96e-70b2-11e8-9fa6-de97a1615ae5.png" width="500" height="300">
 
 - IoT Setup
 
-![image](https://user-images.githubusercontent.com/1582196/41492303-29e5a6aa-70b3-11e8-84ba-d3e6ea7211e5.png) ![image](https://user-images.githubusercontent.com/1582196/41492308-380a8804-70b3-11e8-921e-a05410272cfd.png)
+<img src="https://user-images.githubusercontent.com/1582196/41492303-29e5a6aa-70b3-11e8-84ba-d3e6ea7211e5.png" width="500" height="300"> <img src="https://user-images.githubusercontent.com/1582196/41492308-380a8804-70b3-11e8-921e-a05410272cfd.png" width="500" height="300">
 
 - Application Screenshots
 
