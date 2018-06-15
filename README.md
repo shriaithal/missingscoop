@@ -3,7 +3,7 @@
   IoT Based Smart Kitchen Containers that track grocery consumption and continuously provide insights into kitchen cabinets. We propose a system where containers are equipped with smart devices using load sensors and ESP32 microcontroller which captures the weight of the container continuously and uploads that data to cloud with the help of MQTT client and AWS IoT configuration. This weight states of the container is monitored to identify if the grocery weight goes below a threshold and notify the user about the time to purchase. The application also provides visualization of current weight of the grocery and enables easy tracking. Furthermore, the application also houses a nutrition tracking system that encourages healthy eating habits. Based on historical data and daily consumption a nutrition pattern can be observed and users can make eat food in moderation. This nutrition tracking also helps monitoring malnutrition in children and tracking unhealthy eating habits in adults.
 
 - Demo
-  <br>[Missing Scoop Iot and Android App Working Demo](https://youtu.be/yH8PBcnbjS8)
+  <br>[Missing Scoop Android and AWS IoT App Working Demo](https://youtu.be/yH8PBcnbjS8)
   
 - System Architecture
 
